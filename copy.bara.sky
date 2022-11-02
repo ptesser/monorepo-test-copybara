@@ -1,0 +1,40 @@
+sourceUrl = "file:///src/monorepo-test-copybara"
+destinationUrl = "file:///src/library-test-copybara"
+
+core.workflow(
+    name = "pull_from_monorepo",
+    mode = "ITERATIVE",
+    origin = git.origin(
+        url = sourceUrl,
+        ref = "master",
+    ),
+    destination = git.destination(
+        url = destinationUrl,
+        fetch = "master",
+        push = "master",
+    ),
+    origin_files = glob(["library/**"]),
+    authoring = authoring.pass_thru("Copybara <copybara@example.com>"),
+    transformations = [
+        core.move("library", ""),
+    ],
+)
+
+core.workflow(
+    name = "push_to_monorepo",
+    mode = "ITERATIVE",
+    origin = git.origin(
+        url = destinationUrl,
+        ref = "master",
+    ),
+    destination = git.destination(
+        url = sourceUrl,
+        fetch = "master",
+        push = "master",
+    ),
+    destination_files = glob(["library/**"]),
+    authoring = authoring.pass_thru("Copybara <copybara@example.com>"),
+    transformations = [
+        core.move("", "library"),
+    ],
+)
