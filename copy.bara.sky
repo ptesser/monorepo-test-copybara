@@ -10,8 +10,13 @@ core.workflow(
     ),
     destination = git.destination(
         url = destinationUrl,
-        fetch = "master",
-        push = "master",
+        # fetch = "master",
+        # push = "master",
+        destination_ref = "master",
+        # TODO: Make it dynamic
+        pr_branch = "chore/bump-version",
+        title = "PR from internal monorepo",
+        body = "This is a sample pull request",
     ),
     origin_files = glob(["library/**"]),
     authoring = authoring.pass_thru("Copybara <copybara@example.com>"),
@@ -20,21 +25,23 @@ core.workflow(
     ],
 )
 
-core.workflow(
-    name = "push_to_monorepo",
-    mode = "ITERATIVE",
-    origin = git.origin(
-        url = destinationUrl,
-        ref = "master",
-    ),
-    destination = git.destination(
-        url = sourceUrl,
-        fetch = "master",
-        push = "master",
-    ),
-    destination_files = glob(["library/**"]),
-    authoring = authoring.pass_thru("Copybara <copybara@example.com>"),
-    transformations = [
-        core.move("", "library"),
-    ],
-)
+# NOTE: In a first iteration we don't want to support this flow: public repo -> monorepo
+
+# core.workflow(
+#     name = "push_to_monorepo",
+#     mode = "ITERATIVE",
+#     origin = git.origin(
+#         url = destinationUrl,
+#         ref = "master",
+#     ),
+#     destination = git.destination(
+#         url = sourceUrl,
+#         fetch = "master",
+#         push = "master",
+#     ),
+#     destination_files = glob(["library/**"]),
+#     authoring = authoring.pass_thru("Copybara <copybara@example.com>"),
+#     transformations = [
+#         core.move("", "library"),
+#     ],
+# )
