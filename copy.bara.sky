@@ -1,8 +1,8 @@
-sourceUrl = "file:///src/monorepo-test-copybara"
-destinationUrl = "file:///src/library-test-copybara"
+sourceUrl = "git@github.com:ptesser/monorepo-test-copybara.git"
+destinationUrl = "git@github.com:ptesser/library-test-copybara.git"
 
 core.workflow(
-    name = "pull_from_monorepo",
+    name = "default",
     mode = "ITERATIVE",
     origin = git.origin(
         url = sourceUrl,
