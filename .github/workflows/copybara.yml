@@ -1,0 +1,20 @@
+name: Publish @traent/ngx-spinner
+on: workflow_dispatch
+
+jobs:
+  copybara:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Copying credentials
+      run: |
+        mkdir ~/.ssh
+        echo $'${{ secrets.SSH_KEY }}' > ~/.ssh/id_rsa
+        echo $'${{ secrets.KNOWN_HOSTS }}' > ~/.ssh/known_hosts
+    - name: Configure Git credentials
+      run: |
+        git config --global user.name Copybara
+        git config --global user.email copybara@traent.com
+    - name: Pull Copybara action
+      run: docker pull anipos/copybara:latest
+    - name: Run Copybara
+      run: docker run -v ~/.ssh:/root/.ssh -v ~/.gitconfig:/root/.gitconfig -v "$(pwd)":/usr/src/app -e COPYBARA_CONFIG="." -i anipos/copybara copybara || true
