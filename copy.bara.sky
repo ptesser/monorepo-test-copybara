@@ -8,7 +8,7 @@ core.workflow(
         url = sourceUrl,
         ref = "master",
     ),
-    destination = git.destination(
+    destination = git.github_pr_destination(
         url = destinationUrl,
         # fetch = "master",
         # push = "master",
