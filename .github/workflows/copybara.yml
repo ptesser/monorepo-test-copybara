@@ -1,6 +1,10 @@
 name: Publish @traent/ngx-spinner
 on: workflow_dispatch
 
+defaults:
+  run:
+    working-directory: ./
+
 jobs:
   copybara:
     runs-on: ubuntu-latest
