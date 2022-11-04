@@ -21,4 +21,4 @@ jobs:
     - name: Pull Copybara action
       run: docker pull anipos/copybara:latest
     - name: Run Copybara
-      run: docker run -v ~/.ssh:/root/.ssh -v ~/.gitconfig:/root/.gitconfig -v "$(pwd)":/usr/src/app -e COPYBARA_CONFIG="/usr/src/app/copy.bara.sky" -i anipos/copybara copybara || true
+      run: docker run -v ~/.ssh:/root/.ssh -v ~/.gitconfig:/root/.gitconfig -v "$(pwd)":/usr/src/app -e COPYBARA_CONFIG="/usr/src/app/copy.bara.sky" -i anipos/copybara ls -la /src/usr/app || true
